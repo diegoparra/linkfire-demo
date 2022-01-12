@@ -22,7 +22,6 @@ jobs:
       - name: Docker Login
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Docker Build
       - name: Build, tag, and push image to Dockerhub
         env:
           REGISTRY: diegoparra
