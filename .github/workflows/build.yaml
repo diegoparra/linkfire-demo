@@ -10,9 +10,9 @@ jobs:
     name: build
     runs-on: ubuntu-latest
 
-    #    permissions:
-    #      id-token: write
-    #      contents: write
+    permissions:
+      id-token: write
+      contents: write
 
     steps:
       - name: checkout
