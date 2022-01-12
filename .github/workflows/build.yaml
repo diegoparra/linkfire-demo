@@ -1,4 +1,4 @@
-name: Datasink Build Pipeline
+name: Linkfire Live demo
 
 on:
   push:
