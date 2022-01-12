@@ -56,7 +56,6 @@ jobs:
 
       - name: commit
         run: |
-          cd ./gitops
           git config --local user.email "devops@linkfire.com"
           git config --local user.name "Deploy Actions"
           git commit -am "update docker tag"
