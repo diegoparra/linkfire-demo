@@ -62,7 +62,7 @@ jobs:
       - name: push
         uses: ad-m/github-push-action@master
         with:
-          #github_token: ${{ secrets.PAT_TOKEN }}
+          github_token: ${{ secrets.PAT_TOKEN }}
           branch: main #${{ github.ref }}
           #directory: ./gitops
           repository: diegoparra/linkfire-demo-gitops
