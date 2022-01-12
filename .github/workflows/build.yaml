@@ -30,3 +30,41 @@ jobs:
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          repository: diegoparra/linkfire-demo-gitops
+
+      - name: kustomize
+        uses: imranismail/setup-kustomize@v1
+        with:
+          kustomize_version: v3.6.1
+
+      - name: update k8s docker tag image
+        run: |
+          ls -l
+          cd ./base/
+          kustomize edit set image diegoparra/lf-app=diegoparra/lf-app:${{ github.sha }}
+          cat kustomization.yaml
+
+      - name: commit
+        run: |
+          cd ./gitops
+          git config --local user.email "devops@linkfire.com"
+          git config --local user.name "Deploy Actions"
+          git commit -am "update docker tag"
+      - name: push
+        uses: ad-m/github-push-action@master
+        with:
+          #github_token: ${{ secrets.PAT_TOKEN }}
+          branch: develop #${{ github.ref }}
+          #directory: ./gitops
+          repository: diegoparra/linkfire-demo-gitops
+
